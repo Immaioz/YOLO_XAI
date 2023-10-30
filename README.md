@@ -25,3 +25,22 @@ First the heatmap is obtained using EigenCAM, then the grayscale version is used
 This process is repeated for different percentiles of least relevant pixels selected, that goes from 0 to 100%.
 
 
+
+# Usage:
+
+
+```bash
+usage: argmark [-h] [-d D] [-t T] [-c C] [-f] [-s]
+
+```
+# Arguments
+
+|short|long|default|help|
+| :--- | :--- | :--- | :--- |
+|`-h`|`--help`||show this help message and exit|
+|`-D`||`dati/trained_model/`|Relative path to the directory containing .pkl files.|
+|`-T`||`0`|Select confidence (0), iou (1) or initial confidence (2).|
+|`-C`||`7`|Select the specific class (default All).|
+|`-F`|||Print confidence and iou on csv|
+|`-S`|||Set confidence and iou or confidence only (Single Class)|
+
