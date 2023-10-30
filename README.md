@@ -25,12 +25,38 @@ First the heatmap is obtained using EigenCAM, then the grayscale version is used
 This process is repeated for different percentiles of least relevant pixels selected, that goes from 0 to 100%.
 
 
+# Description
+
+Perturbation of a set of images using YoloV8 models to store confidence and IoU data.
+Perturbation can be done
+# Usage:
+
+
+```bash
+usage: perturb.py [-h] [-d D] [-m M] [-l L] [-lc] [-p P] [-v] [-c C]
+
+```
+# Arguments
+
+|short|long|default|help|
+| :--- | :--- | :--- | :--- |
+|`-h`|`--help`||show this help message and exit|
+|`-D`||`utils/dataset/subset/`|Relative path to the directory containing images.|
+|`-M`||`models/`|Relative path to the directory containing models|
+|`-L`||`-2`|Select the target layer.|
+|`-LC`|||Show layer check|
+|`-P`||`0`|Select perturbation (Remove, Random, Mean).|
+|`-V`|||Select double model (IR and Visible or not)|
+|`-C`||`7`|Select the specific class (default All).|
+
+
+
 
 # Usage:
 
 
 ```bash
-usage: argmark [-h] [-d D] [-t T] [-c C] [-f] [-s]
+usage: compute.py [-h] [-d D] [-t T] [-c C] [-f] [-s]
 
 ```
 # Arguments
@@ -43,4 +69,7 @@ usage: argmark [-h] [-d D] [-t T] [-c C] [-f] [-s]
 |`-C`||`7`|Select the specific class (default All).|
 |`-F`|||Print confidence and iou on csv|
 |`-S`|||Set confidence and iou or confidence only (Single Class)|
+
+
+
 
