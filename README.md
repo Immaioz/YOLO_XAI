@@ -17,10 +17,7 @@ First the heatmap is obtained using EigenCAM, then the grayscale version is used
 ![](utils/output.png)
 
 
-![](utils/mean1.png)
-
-
-![](utils/random1.png)
+![](utils/pertub.png)
 
 This process is repeated for different percentiles of least relevant pixels selected, that goes from 0 to 100%.
 
