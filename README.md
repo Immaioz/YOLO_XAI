@@ -14,13 +14,13 @@ This script performs 3 kind of perturbation on the images in the [dataset](utils
 
 First the heatmap is obtained using EigenCAM, then the grayscale version is used to substitute the least relevant pixels with the mean of the value of pixels in the image or with a random distribution
 
-![](utils/images/output.png)
+![](utils/output.png)
 
 
-![](utils/images/mean1.png)
+![](utils/mean1.png)
 
 
-![](utils/images/random1.png)
+![](utils/random1.png)
 
 This process is repeated for different percentiles of least relevant pixels selected, that goes from 0 to 100%.
 
