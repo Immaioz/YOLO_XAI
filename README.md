@@ -25,10 +25,11 @@ First the heatmap is obtained using EigenCAM, then the grayscale version is used
 This process is repeated for different percentiles of least relevant pixels selected, that goes from 0 to 100%.
 
 
-# Description
+# Description Perturbation Script
 
 Perturbation of a set of images using YoloV8 models to store confidence and IoU data.
-Perturbation can be done
+Perturbation modes can be selected as Remove, Random or Mean.
+Also two models can be selected (IR and Visible).
 # Usage:
 
 
@@ -50,7 +51,9 @@ usage: perturb.py [-h] [-d D] [-m M] [-l L] [-lc] [-p P] [-v] [-c C]
 |`-C`||`7`|Select the specific class (default All).|
 
 
+# Description Computation Script
 
+Computation for Explainable AI using YOLOv8 models, this script shows plots for IoU, confidence score over different perturbation percentiles and initial confidence score and then saves the outputs to a cvs.
 
 # Usage:
 
@@ -66,7 +69,7 @@ usage: compute.py [-h] [-d D] [-t T] [-c C] [-f] [-s]
 |`-h`|`--help`||show this help message and exit|
 |`-D`||`dati/trained_model/`|Relative path to the directory containing .pkl files.|
 |`-T`||`0`|Select confidence (0), iou (1) or initial confidence (2).|
-|`-C`||`7`|Select the specific class (default All).|
+|`-C`||`7`|Select the specific class (default ALL).|
 |`-F`|||Print confidence and iou on csv|
 |`-S`|||Set confidence and iou or confidence only (Single Class)|
 
