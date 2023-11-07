@@ -16,7 +16,6 @@ args = parser.parse_args()
 
 tasks = ["remove", "random", "mean"]
 
-
 instance = Perturbation(args.d, args.m, args.l, tasks[args.p], args.v, args.c, args.lc)
 
 if args.lc == True:
@@ -27,4 +26,3 @@ elif args.c != 7:
         instance.run(i)
 else:
     instance.run(args.c)
-

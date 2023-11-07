@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from yolo_cam.eigen_cam import EigenCAM
-from yolo_cam.utils.image import show_cam_on_image, scale_cam_image
+from yolo_cam.utils.image import show_cam_on_image
 import random
 from PIL import Image
 import os
@@ -29,6 +29,7 @@ class Perturbation:
         self.model = []
         self.conf_tot_all_images = {}
         self.IoU_tot_all_images = {}
+        self.mean_bbox = {}
         self.conf_initial = {}
         self.image_list = {}
         self.output_folder = "output"
@@ -59,8 +60,7 @@ class Perturbation:
     def perturbation(self, img, mask, percentile, bbox, cls, model):
         results = model(img, verbose=False, max_det=1)
         boxes = results[0].boxes
-        original = results[0].plot()
-        
+        original = results[0].plot()        
         # conf = float(boxes.conf.cpu().numpy())
 
         if(self.task == "remove"):
@@ -258,6 +258,8 @@ class Perturbation:
 
             image = list(self.image_list.values())[i]
             gray, inv, image, box, classes, conf, flag = self.acquire(image, model, layers)
+            mean = self.avg_bbox(box, gray)
+
             self.conf_initial[name] = conf
 
             if flag:
@@ -276,9 +278,10 @@ class Perturbation:
                     if out is not None:
                         conf_tot.append(conf_inc)
                         IoU_tot.append(iou)
-            # heatmap[name] = (gray)
+
             self.conf_tot_all_images[name] = (conf_tot)
             self.IoU_tot_all_images[name] = (IoU_tot)
+            self.mean_bbox[name] = mean
 
 
     def save_data(self):
@@ -299,8 +302,6 @@ class Perturbation:
             filepath = os.path.join(self.output_folder, filename)
             with open(filepath, 'wb') as file:
                 pickle.dump(outs[i], file)
-
-
 
     def acquire(self, img, model, layers):
         img = cv2.resize(img, (640, 640))
@@ -326,9 +327,10 @@ class Perturbation:
             g_scale = np.stack([grayscale_cam] * 3, axis=2)
             return g_scale, inv,  rgb_img, bbox, cls, conf, True
     
-    
-
-
-
-
-
+    def avg_bbox(self, boxes, grayscale_cam):
+        renormalized_cam = np.zeros(grayscale_cam.shape, dtype=np.float32)
+        for x1, y1, x2, y2 in boxes:
+            renormalized_cam[y1:y2, x1:x2] = grayscale_cam[y1:y2, x1:x2].copy()  
+        im = renormalized_cam[y1:y2, x1:x2].copy()
+        mean = np.mean(im)
+        return mean
